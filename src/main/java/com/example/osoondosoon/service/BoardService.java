@@ -25,21 +25,14 @@ public class BoardService {
 
     // 모든 글 가져오기
     public List<BoardListResponseDto> findAllBoard() {
-        try{
-            List<Board> boardList = boardRepository.findAll();
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardListResponseDto> responseDtoList = new ArrayList<>();
 
-            List<BoardListResponseDto> responseDtoList = new ArrayList<>();
-
-            for (Board board : boardList) {
-                responseDtoList.add(
-                        new BoardListResponseDto(board)
-                );
-            }
-            return responseDtoList;
-        } catch (Exception e) {
-//            throw new DBEmptyDataException("a");
+        for (Board board : boardList) {
+            responseDtoList.add(new BoardListResponseDto(board));
         }
-        return null;
+
+        return responseDtoList;  // ✅ `null` 반환 대신 빈 리스트라도 반환
     }
 
     // 글 하나 가져오기
