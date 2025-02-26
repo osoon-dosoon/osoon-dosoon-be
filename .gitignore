@@ -39,5 +39,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-!**/src/main/resources/application-private.properties
