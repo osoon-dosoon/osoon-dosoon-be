@@ -12,31 +12,38 @@ import java.util.Optional;
 @AllArgsConstructor
 @Getter
 public class BoardListResponseDto {
-    // 제목
-    private String title;
+    // 게시글 아이디
+    private Long boardId;
 
     // 작성자명
-//    private String username;
+    private String writer;
+
+    // 제목
+    private String title;
 
     // 내용
     private String content;
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime modifiedAt;
+//    private LocalDateTime modifiedAt;
 
     public BoardListResponseDto(Board board) {
+        this.boardId = board.getBoardId();
+        this.writer = board.getWriter();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.createdAt = board.getCreatedAt();
-        this.modifiedAt = board.getModifiedAt();
+//        this.modifiedAt = board.getModifiedAt();
     }
 
     public BoardListResponseDto(Optional<Board> board) {
+        this.boardId = board.get().getBoardId();
+        this.writer = board.get().getWriter();
         this.title = board.get().getTitle();
         this.content = board.get().getContent();
         this.createdAt = board.get().getCreatedAt();
-        this.modifiedAt = board.get().getModifiedAt();
+//        this.modifiedAt = board.get().getModifiedAt();
     }
 }
 

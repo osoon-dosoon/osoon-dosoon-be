@@ -18,7 +18,11 @@ public class Board extends TimeStamp {
     // 글 고유 아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long boardId;
+
+    // 작성자
+    @Column(nullable = false)
+    private String writer;
 
     // 글 제목
     @Column(nullable = false)
@@ -38,11 +42,13 @@ public class Board extends TimeStamp {
 //    private LocalDateTime modifiedAt;
 
     public Board(BoardRequestDto requestDto) {
+        this.writer = requestDto.getWriter();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
 
     public void update(BoardRequestDto requestDto) {
+        this.writer = requestDto.getWriter();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
