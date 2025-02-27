@@ -7,6 +7,7 @@ import com.example.osoondosoon.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BoardController {
@@ -17,32 +18,32 @@ public class BoardController {
     }
 
     // 글 생성
-    @PostMapping("/boards")
+    @PostMapping("/api/boards")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto){
         BoardResponseDto board = boardService.createBoard(requestDto);
         return board;
     }
 
     // 전체 목록 조회
-    @GetMapping("/boards")
-    public List<BoardListResponseDto> getAllBoards() {
+    @GetMapping("/api/boards")
+    public Map<String, Object> getAllBoards() {
         return boardService.findAllBoard();
     }
 
     // 글 하나 조회
-    @GetMapping("/boards/{id}")
+    @GetMapping("/api/boards/{id}")
     public BoardResponseDto getOneBoard(@PathVariable Long id) {
         return boardService.findOneBoard(id);
     }
 
     // 글 수정
-    @PutMapping("/boards/{id}")
+    @PutMapping("/api/boards/{id}")
     public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
         return boardService.updateBoard(id,requestDto);
     }
 
     // 글 삭제
-    @DeleteMapping("/boards/{id}")
+    @DeleteMapping("/api/boards/{id}")
     public Long deleteBoard(@PathVariable Long id) {
         return boardService.deleteBoard(id);
     }

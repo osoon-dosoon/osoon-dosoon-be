@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -24,7 +26,7 @@ public class BoardService {
     }
 
     // 모든 글 가져오기
-    public List<BoardListResponseDto> findAllBoard() {
+    public Map<String, Object> findAllBoard() {
         List<Board> boardList = boardRepository.findAll();
         List<BoardListResponseDto> responseDtoList = new ArrayList<>();
 
@@ -32,7 +34,9 @@ public class BoardService {
             responseDtoList.add(new BoardListResponseDto(board));
         }
 
-        return responseDtoList;  // ✅ `null` 반환 대신 빈 리스트라도 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", responseDtoList);
+        return response;
     }
 
     // 글 하나 가져오기
@@ -50,7 +54,7 @@ public class BoardService {
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
         board.update(requestDto);
-        return board.getId();
+        return board.getBoardId();
     }
 
     // 삭제
