@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class BoardRequestDto {
-    private String writer;
-
+    private String writer; // 임시
+    
     private String title;
 
     private String content;
