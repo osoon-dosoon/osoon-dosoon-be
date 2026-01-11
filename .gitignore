@@ -21,7 +21,7 @@ bin/
 .application.properties
 .application-private.properties
 
-### IntelliJ IDEA ###
+### IntelliJ IDEA ###   
 .idea
 *.iws
 *.iml

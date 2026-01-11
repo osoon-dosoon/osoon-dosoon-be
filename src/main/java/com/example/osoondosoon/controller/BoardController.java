@@ -1,12 +1,12 @@
 package com.example.osoondosoon.controller;
 
-import com.example.osoondosoon.dto.BoardListResponseDto;
 import com.example.osoondosoon.dto.BoardRequestDto;
 import com.example.osoondosoon.dto.BoardResponseDto;
+import com.example.osoondosoon.dto.BoardsResponseDto;
+import com.example.osoondosoon.entity.BoardCategory;
 import com.example.osoondosoon.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,8 +26,8 @@ public class BoardController {
 
     // 전체 목록 조회
     @GetMapping("/api/boards")
-    public Map<String, Object> getAllBoards() {
-        return boardService.findAllBoard();
+    public BoardsResponseDto getBoards(@RequestParam(required = false) BoardCategory category) {
+        return boardService.findBoards(category);
     }
 
     // 글 하나 조회

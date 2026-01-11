@@ -3,21 +3,22 @@ package com.example.osoondosoon.service;
 import com.example.osoondosoon.dto.BoardListResponseDto;
 import com.example.osoondosoon.dto.BoardRequestDto;
 import com.example.osoondosoon.dto.BoardResponseDto;
+import com.example.osoondosoon.dto.BoardsResponseDto;
 import com.example.osoondosoon.entity.Board;
+import com.example.osoondosoon.entity.BoardCategory;
 import com.example.osoondosoon.repository.BoardRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+
     // 글 생성
     public BoardResponseDto createBoard(BoardRequestDto requestDto) {
         Board board = new Board(requestDto);
@@ -25,18 +26,17 @@ public class BoardService {
         return new BoardResponseDto(board);
     }
 
-    // 모든 글 가져오기
-    public Map<String, Object> findAllBoard() {
-        List<Board> boardList = boardRepository.findAll();
-        List<BoardListResponseDto> responseDtoList = new ArrayList<>();
+    // ✅ 전체 목록(카테고리 필터 포함)
+    public BoardsResponseDto findBoards(BoardCategory category) {
+        List<Board> boardList = (category == null)
+                ? boardRepository.findAllByOrderByCreatedAtDesc()
+                : boardRepository.findByCategoryOrderByCreatedAtDesc(category);
 
-        for (Board board : boardList) {
-            responseDtoList.add(new BoardListResponseDto(board));
-        }
+        List<BoardListResponseDto> data = boardList.stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", responseDtoList);
-        return response;
+        return new BoardsResponseDto(data);
     }
 
     // 글 하나 가져오기
