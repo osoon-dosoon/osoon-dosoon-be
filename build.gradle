@@ -9,10 +9,8 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
-	// sourceCompatibility = JavaVersion.VERSION_1_8
-	// targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 configurations {
@@ -31,21 +29,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testCompileOnly 'org.projectlombok:lombok:1.18.34'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+	// Lombok (JDK 17에서도 OK)
+	compileOnly "org.projectlombok:lombok:1.18.34"
+	annotationProcessor "org.projectlombok:lombok:1.18.34"
+	testCompileOnly "org.projectlombok:lombok:1.18.34"
+	testAnnotationProcessor "org.projectlombok:lombok:1.18.34"
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 	runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
-	// runtimeOnly 'com.mysql:mysql-connector-j'
-	// implementation 'mysql:mysql-connector-java:8.0.33'
-	
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	
 }
 
 tasks.named('test') {
